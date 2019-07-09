@@ -41,7 +41,7 @@
 						</div>
 						<div class="form-group">
 							<button type="submit" class="btn btn-primary">
-								<i class="fas fa-search text-white">Search</i>
+								<i class="fas fa-search text-white">Search </i>
 							</button>
 						</div>		
 					</form>
