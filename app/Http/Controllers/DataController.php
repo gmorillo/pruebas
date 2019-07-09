@@ -18,4 +18,11 @@ class DataController extends Controller
         $states = DB::table("states")->where("countries_id",$id)->pluck("name","id");
         return json_encode($states);
     }
+
+    public function index(){
+        $lat = '-23.91721';
+        $long = '151.22630';
+
+        return view('asset-master.properties.map', compact('lat', 'long'));
+    }
 }

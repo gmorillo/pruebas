@@ -22,9 +22,11 @@ Route::get('/registration-property', function () {
     return view('asset-master.properties.registration-properties');
 })->name('regProperty');
 
-Route::get('/map', function () {
+/*Route::get('/map', function () {
     return view('asset-master.properties.map');
-})->name('map');
+})->name('map');*/
+
+Route::get('/map', 'DataController@index')->name('map');
 
 
 

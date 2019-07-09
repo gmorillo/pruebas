@@ -39,7 +39,7 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 16,
-          center: new google.maps.LatLng(-33.91721, 151.22630),
+          center: new google.maps.LatLng({{$lat}},{{$long}}),
           mapTypeId: 'roadmap'
         });
 
@@ -53,7 +53,7 @@
 
         var features = [
           {
-            position: new google.maps.LatLng(-33.91721, 151.22630),
+            position: new google.maps.LatLng({{$lat}},{{$long}}),
             type: 'info'
           }
         ];
