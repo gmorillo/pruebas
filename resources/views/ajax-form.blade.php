@@ -24,7 +24,7 @@
 <body>
   
 <div class="container">    
-    <form id="contact_us" method="post" action="javascript:void(0)" class="my-5">
+    <form id="contact_us" method="post" action="javascript:void(0)" class="my-5"> 
       @csrf
       <div class="form-group">
         <label for="name">Name</label>
@@ -44,17 +44,46 @@
       <div class="alert alert-success d-none" id="msg_div">
               <span id="res_message"></span>
       </div>
+      
       <div class="form-group">
        <button type="submit" id="send_form" class="btn btn-success">Submit</button>
       </div>
     </form>
+
     <div class="container">
-    	<table id="table_id" class="display">
+    	<div class="panel panel-primary">
+      		<div class="panel-body">
+      			@if ($message = Session::get('success'))
+			        <div class="alert alert-success alert-block">
+			            <button type="button" class="close" data-dismiss="alert">×</button>
+			                <strong>{{ $message }}</strong>
+			        </div>
+			        <video controls><source src="img/{{ Session::get('video') }}" type="video/mp4"></video>
+		        @endif
+		        <form action="{{ route('image.upload.post') }}" method="POST" enctype="multipart/form-data">
+		        	@csrf
+			        <div class="row">
+			        	<div class="col-md-6">
+				        	<input type="file" name="video" class="form-control" multiple>
+				    	</div>
+				        <div class="col-md-6">
+				        	<button type="submit" class="btn btn-success">Upload</button>
+				    	</div>
+		    		</div>
+		        </form>
+		  	</div>
+		</div>
+	</div><br><br>
+	
+	<br><br><br>
+    <div class="container">
+    	<table id="table_id" class="display" enctype="multipart/form-data">
 		    <thead>
 		        <tr>
 		            <th>Nombre</th>
 		            <th>Correo</th>
 		            <th>Móvil</th>
+		            <th>Video</th>
 		            <th>&nbsp;</th>
 		        </tr>
 		    </thead>
@@ -64,6 +93,7 @@
 		            <td>{{$user->name}}</td>
 		            <td>{{$user->email}}</td>
 		            <td>{{$user->mobile_number}}</td>
+		            <td><video width="400" controls><source src="/img/{{$user->video}}" type="video/mp4"></video></td>
 					<td>
 						<a href="javascript:void(0)" data-id="{{ $user->id }}" onclick="return false;"  class="delete-user"><i class="far fa-trash-alt"></i></a>
 						<!--<a href="/{{$user->id}}" onclick="return false;" id="add"><i class="fas fa-plus"></i></a><--></-->

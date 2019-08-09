@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use DB;
+use Carbon\Carbon;
 use Validator,Redirect,Response;
 use App\Contact;
+use Input;
 
 class FormController extends Controller
 {
     public function index()
     {
-    	$data = Contact::select('id', 'name','email', 'mobile_number')->get();
+    	$data = Contact::get();
         return view('ajax-form', compact('data'));
     }       
  
@@ -19,7 +23,8 @@ class FormController extends Controller
         request()->validate([
 	        'name' => 'required',
 	        'email' => 'required|email|unique:users',
-	        'mobile_number' => 'required'
+	        'mobile_number' => 'required',
+
         ]);
          
         $data = $request->except(['_token']);
@@ -31,6 +36,21 @@ class FormController extends Controller
         return Response()->json($arr);
        
     }
+
+    public function imageUploadPost(Request $request)
+    {
+        if($request->hasFile('video')) 
+        {
+            $imageName = time().'.'.request()->video->getClientOriginalExtension();
+            request()->video->move(public_path('img'), $imageName);
+        }
+
+        $data = Contact::create(['video' => $imageName,  'name' => 'hola nombre', 'email' => 'holaemail@corereo.com', 'mobile_number' => '9879879877']);
+
+        return back()->with('success','You have successfully upload image.')->with('video',$imageName);;
+    }
+
+
 
     public function destroy($id){
     	$user = Contact::where('id',$id)->delete();

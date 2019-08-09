@@ -40,3 +40,7 @@ Route::post('save-form', 'FormController@store')->name('save-form');
 Route::get('delete/{id}', 'FormController@destroy');
 
 Route::get('/search', 'SearchController@index')->name('users');
+
+Route::get('image-upload', 'FormController@imageUpload')->name('image.upload');
+
+Route::post('image-upload', 'FormController@imageUploadPost')->name('image.upload.post');
