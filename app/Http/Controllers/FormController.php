@@ -41,7 +41,7 @@ class FormController extends Controller
     {
         if($request->hasFile('video')) 
         {
-            $imageName = time().'.'.request()->video->getClientOriginalExtension();
+            $imageName = 'video-'.time().'.'.request()->video->getClientOriginalExtension();
             request()->video->move(public_path('img'), $imageName);
         }
 
@@ -58,3 +58,5 @@ class FormController extends Controller
         return Response::json($user);
     }
 }
+
+

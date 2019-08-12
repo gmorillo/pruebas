@@ -18,8 +18,7 @@
 			<div class="col-md-12">
 				<div class="page-header">
 					<h1>Búsqueda de usuarios</h1>
-					<form action="{{route('users')}}" method="GET"  class="form-inline pull-rigth">
-						
+					<form action="javascript:void(0)" id="contact_us" method="GET"  class="form-inline pull-rigth">
 						<div class="form-group">
 							<select name="name" id="name">
 								<option value="">Seleccionar</option>
@@ -37,32 +36,59 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<input type="text" name="bio" class="form-control" placeholder="Bio">
+							<input type="text" name="bio" id="bio" class="form-control" placeholder="Bio">
 						</div>
 						<div class="form-group">
-							<button type="submit" class="btn btn-primary">
+							<button type="submit" class="btn btn-primary" id="srcBtn">
 								<i class="fas fa-search text-white">Search </i>
 							</button>
 						</div>		
 					</form>
 				</div>
 			</div>
+			</div>
 			<div class="col-md-8">
-				<table class="table table-hover table-striped">
-					<tbody>
-						@foreach($users as $user)
-							<tr>
-								<td>{{$user->id}}</td>
-								<td>{{$user->name}}</td>
-								<td>{{$user->email}}</td>
-								<td>{{$user->bio}}</td>
-							</tr>
-						@endforeach
-					</tbody>
-				</table>
-			
+				<div id="productData">
+					<table class="table table-hover table-striped" id="hola">
+						<tbody>
+							@foreach($users as $user)
+								<tr>
+									<td>{{$user->id}}</td>
+									<td>{{$user->name}}</td>
+									<td>{{$user->email}}</td>
+									<td>{{$user->bio}}</td>
+								</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
   </body>
 </html>
+
+<script>
+	$(document).ready(function() {
+		$('#srcBtn').click(function(event) {
+			var name = $("#name").val();
+			var email = $("#email").val();
+			var bio = $("#bio").val();
+
+			$.ajax({
+				url : '{{route('searching')}}',
+				type : "GET",
+				dataType: 'html',
+				data: 'name=' + name + '&email=' + email + '&bio=' + bio,
+				success: function (response) {
+					//console.log(response),
+					$('#productData').html(response),
+	                toastr.success('Listado correctamente via ajax')
+	            },
+	            error: function (response) {
+	                toastr.error('Error al listar via ajax')
+	            }
+          	});
+		});
+	});
+</script>

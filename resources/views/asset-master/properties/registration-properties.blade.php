@@ -142,4 +142,18 @@
 
 	</div>
 </div>
+
+<br><br><br><br><br>
+
+
+	@for($k = 0; $k < 100; $k++)
+		<br>	
+		@for ($i = 0; $i < 5; $i++)
+    		The current value is {{ $i }} <br>
+		@endfor
+
+		@for ($j = 0; $j < 2; $j++)
+		    The current value is {{ $j }} <br>
+		@endfor
+	@endfor
 @endsection
